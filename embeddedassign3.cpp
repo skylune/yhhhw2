@@ -7,14 +7,13 @@
 #define HEIGHT  64    // OLED display height, in pixels
 // 软件 SPI 总线
 // Declaration for SSD1306 display connected using software SPI (default case):
-#define OLED_SCK  18
-#define OLED_SDA  13
+#define OLED_SCK  22
+#define OLED_SDA  21
 #define OLED_RES  15
-#define OLED_DC   2
-#define OLED_CS   4
+
 
 // 构造对象
-Adafruit_SSD1306  OLED(WIDTH, HEIGHT, OLED_SDA, OLED_SCK, OLED_DC, OLED_RES, OLED_CS);
+Adafruit_SSD1306  OLED(WIDTH, HEIGHT, OLED_SDA, OLED_SCK, OLED_RES);
 
 void setup() {
   // OLED初始化
