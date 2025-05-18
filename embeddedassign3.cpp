@@ -1,38 +1,39 @@
 #include <Arduino.h>
-#include <SPI.h>
+#include <Adafruit_SSD1306.h>  // Adafruit 库
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
-#define WIDTH   128   // OLED display width, in pixels
-#define HEIGHT  64    // OLED display height, in pixels
-// 软件 SPI 总线
-// Declaration for SSD1306 display connected using software SPI (default case):
-#define OLED_SCK  22
-#define OLED_SDA  21
-#define OLED_RES  15
+//定义屏幕参数
+#define SCREEN_WIDTH  128 // OLED 宽度（单位：像素）
+#define SCREEN_HEIGHT 64  // OLED 高度（单位：像素）
+#define OLED_RESET    -1  // 无复位引脚时设为 -1
+#define SCREEN_ADDRESS 0x3C // I2C 地址（可通过 I2C 扫描工具获取）
 
-
-// 构造对象
-Adafruit_SSD1306  OLED(WIDTH, HEIGHT, OLED_SDA, OLED_SCK, OLED_RES);
+//创建OLED对象
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void setup() {
-  // OLED初始化
-  OLED.begin();
-  // OLED清除显示
-  OLED.clearDisplay();
-  // 设置光标位置
-  OLED.setCursor(1, 1);
-  // 设置文本颜色
-  OLED.setTextColor(SSD1306_WHITE);
-  // 设置字体大小
-  OLED.setTextSize(2);
-  // 显示字符
-  OLED.println("HelloWorld");
+    pinMode(25,OUTPUT);
+    digitalWrite(25,HIGH);
+    //初始化串口通信
+    Serial.begin(9600);
 
-  // 显示内容
-  OLED.display();
+    //初始化oled
+    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+        Serial.println(F("SSD1306 allocation failed"));
+        for (;;); // 初始化失败则循环等待
+      }
+
+    // 清除屏幕并设置参数
+    display.clearDisplay();
+    display.setTextColor(SSD1306_WHITE); // 设置字体颜色为白色
+    display.setTextSize(2); // 设置字体大小（1~5）
+    display.setCursor(10, 20); // 设置字符起始位置（x, y）
+    display.println("Hello, OLED!"); // 显示字符
+    display.display(); // 刷新屏幕
 }
 
+
+
 void loop() {
-  // put your main code here, to run repeatedly:
+    
 }
