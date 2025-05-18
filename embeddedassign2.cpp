@@ -1,7 +1,7 @@
 #include <Arduino.h>
 //定义使用的串口
-const int LEDPIN1 = 25;
-const int LEDPIN2 = 26;
+const int LEDPIN1 = 26;
+const int LEDPIN2 = 27;
 
 //记录LED当前状态，-1为灭，1为亮
 int flag1=-1;
@@ -42,7 +42,7 @@ void loop() {
 void processcommand(char command){
     switch(command){
         case '1':
-            //25号
+            //26号
             if(flag1==-1){
                 flag1=-1*flag1;
                 digitalWrite(LEDPIN1,HIGH);
@@ -56,7 +56,7 @@ void processcommand(char command){
             }
 
             case '2':
-            //26号
+            //27号
             if(flag2==-1){
                 flag2=-1*flag2;
                 digitalWrite(LEDPIN2,HIGH);
